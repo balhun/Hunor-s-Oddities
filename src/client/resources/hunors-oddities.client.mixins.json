@@ -1,6 +1,6 @@
 {
 	"required": true,
-	"package": "hunor.mod.mixin.client",
+	"package": "com.hunor.oddities.mixin.client",
 	"compatibilityLevel": "JAVA_21",
 	"client": [
 		"ExampleClientMixin"

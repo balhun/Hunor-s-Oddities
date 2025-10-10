@@ -1,9 +1,9 @@
 {
 	"required": true,
-	"package": "hunor.mod.mixin",
+	"package": "com.hunor.oddities.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"ExampleMixin"
+      "ExampleMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

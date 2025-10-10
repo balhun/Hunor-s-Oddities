@@ -1,4 +1,4 @@
-package hunor.mod;
+package com.hunor.oddities;
 
 import net.fabricmc.api.ClientModInitializer;
 

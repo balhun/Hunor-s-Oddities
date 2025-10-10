@@ -1,4 +1,4 @@
-package hunor.mod.mixin.client;
+package com.hunor.oddities.mixin.client;
 
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;

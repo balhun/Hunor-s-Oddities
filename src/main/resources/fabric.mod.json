@@ -16,13 +16,13 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"hunor.mod.HunorsOddities"
+			"com.hunor.oddities.HunorsOddities"
 		],
 		"client": [
-			"hunor.mod.HunorsOdditiesClient"
+			"com.hunor.oddities.HunorsOdditiesClient"
 		],
 		"fabric-datagen": [
-			"hunor.mod.HunorsOdditiesDataGenerator"
+			"com.hunor.oddities.HunorsOdditiesDataGenerator"
 		]
 	},
 	"mixins": [
