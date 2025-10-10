@@ -3,9 +3,7 @@ package com.hunor.oddities;
 import com.hunor.oddities.item.HunorsCoffee;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -25,6 +23,7 @@ public class ModItems {
         Registry.register(Registries.ITEM_GROUP, HUNORS_ODDITIES_GROUPKEY, HUNORS_ODDITIES_GROUP);
         ItemGroupEvents.modifyEntriesEvent(HUNORS_ODDITIES_GROUPKEY).register(itemGroup -> {
             itemGroup.add(ModItems.HUNORS_COFFEE);
+            itemGroup.add(Items.COMMAND_BLOCK);
         });
     }
 
