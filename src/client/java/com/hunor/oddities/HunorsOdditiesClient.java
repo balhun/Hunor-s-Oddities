@@ -12,5 +12,6 @@ public class HunorsOdditiesClient implements ClientModInitializer {
 
 		EntityModelLayerRegistry.registerModelLayer(RoombaModel.ROOMBA, RoombaModel::getTexturedModelData);
 		EntityRendererRegistry.register(HunorsOddities.ROOMBA, RoombaRenderer::new);
+
 	}
 }

@@ -24,6 +24,5 @@ public class HunorsOddities implements ModInitializer {
 	public void onInitialize() {
 		ModItems.initialize();
 		FabricDefaultAttributeRegistry.register(ROOMBA, RoombaEntity.createAttributes());
-
 	}
 }

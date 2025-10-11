@@ -18,9 +18,6 @@ import net.minecraft.util.Identifier;
 // Paste this class into your mod and generate all required imports
 public class RoombaModel<R extends AnimalEntity> extends EntityModel<RoombaEntity> {
 
-	public static final AnimationState sweepersAnimationState = new AnimationState();
-	public static final AnimationState movingAnimationState  = new AnimationState();
-
 	public static final EntityModelLayer ROOMBA = new EntityModelLayer(Identifier.of(HunorsOddities.MOD_ID, "roomba"), "main");
 
 	private final ModelPart root;

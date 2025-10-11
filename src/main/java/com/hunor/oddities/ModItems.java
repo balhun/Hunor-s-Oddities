@@ -1,6 +1,7 @@
 package com.hunor.oddities;
 
 import com.hunor.oddities.item.HunorsCoffee;
+import com.hunor.oddities.item.RoombaItem;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.*;
@@ -13,17 +14,22 @@ import net.minecraft.util.Identifier;
 public class ModItems {
 
     public static final Item HUNORS_COFFEE = new HunorsCoffee(new Item.Settings());
-
+    public static final Item ROOMBA_ITEM = new RoombaItem(new Item.Settings());
 
 
 
 
     public static void initialize() {
         Registry.register(Registries.ITEM, Identifier.of(HunorsOddities.MOD_ID, "hunors_coffee"), HUNORS_COFFEE);
+        Registry.register(Registries.ITEM, Identifier.of(HunorsOddities.MOD_ID, "roomba"), ROOMBA_ITEM);
+
+
+
         Registry.register(Registries.ITEM_GROUP, HUNORS_ODDITIES_GROUPKEY, HUNORS_ODDITIES_GROUP);
         ItemGroupEvents.modifyEntriesEvent(HUNORS_ODDITIES_GROUPKEY).register(itemGroup -> {
             itemGroup.add(ModItems.HUNORS_COFFEE);
             itemGroup.add(Items.COMMAND_BLOCK);
+            itemGroup.add(ModItems.ROOMBA_ITEM);
         });
     }
 
