@@ -3,6 +3,7 @@ package com.hunor.oddities.entity;
 import com.hunor.oddities.ModItems;
 import com.hunor.oddities.entity.ai.RoombaPickUpGoal;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -27,6 +28,8 @@ public class RoombaEntity extends AnimalEntity {
 
     private final SimpleInventory inventory = new SimpleInventory(9);
 
+    public int cooldown;
+
     public RoombaEntity(EntityType<? extends AnimalEntity> entityType, World world) { super(entityType, world); }
 
     public SimpleInventory getInventory() { return inventory; }
@@ -49,13 +52,12 @@ public class RoombaEntity extends AnimalEntity {
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         if (!this.getWorld().isClient) {
-            // Transfer all items from Roomba inventory to player inventory
+            cooldown = 20;
             for (int i = 0; i < inventory.size(); i++) {
                 ItemStack stack = inventory.getStack(i);
                 if (!stack.isEmpty()) {
-                    // Try to add to player inventory
                     if (!player.getInventory().insertStack(stack)) {
-                        // If player inventory is full, drop the item
+                        System.out.println("THIS RAN");
                         ItemScatterer.spawn(this.getWorld(), this.getX(), this.getY(), this.getZ(), stack);
                     }
                     inventory.setStack(i, ItemStack.EMPTY);
@@ -66,16 +68,12 @@ public class RoombaEntity extends AnimalEntity {
                 this.discard();
                 ItemStack ROOMBA_ITEM = new ItemStack(ModItems.ROOMBA_ITEM);
                 if (!player.getInventory().insertStack(ROOMBA_ITEM)) {
+                    System.out.println("THIS RAN2");
                     ItemScatterer.spawn(this.getWorld(), this.getX(), this.getY(), this.getZ(), ROOMBA_ITEM);
                 }
             }
         }
         return ActionResult.success(this.getWorld().isClient);
-    }
-
-    @Override
-    public void onDeath(DamageSource damageSource) {
-        super.onDeath(damageSource);
     }
 
     @Override
@@ -98,13 +96,13 @@ public class RoombaEntity extends AnimalEntity {
 
     @Override
     public NbtCompound writeNbt(NbtCompound nbt) {
-        Inventories.writeNbt(nbt, inventory.getHeldStacks(), getWorld().getRegistryManager());
+        Inventories.writeNbt(nbt, inventory.getHeldStacks(), this.getRegistryManager());
         return super.writeNbt(nbt);
     }
 
     @Override
     public void readNbt(NbtCompound nbt) {
-        Inventories.readNbt(nbt, inventory.getHeldStacks(), getWorld().getRegistryManager());
+        Inventories.readNbt(nbt, inventory.getHeldStacks(), this.getRegistryManager());
         super.readNbt(nbt);
     }
 }

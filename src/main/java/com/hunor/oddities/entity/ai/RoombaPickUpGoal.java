@@ -12,7 +12,7 @@ public class RoombaPickUpGoal extends Goal {
 
     private final RoombaEntity roomba;
     private ItemEntity targetItem;
-    private int cooldown;
+
 
     public RoombaPickUpGoal(RoombaEntity roomba) {
         this.roomba = roomba;
@@ -22,12 +22,12 @@ public class RoombaPickUpGoal extends Goal {
     @Override
     public boolean canStart() {
 
-        if (this.cooldown > 0) {
-            this.cooldown--;
+        if (this.roomba.cooldown > 0) {
+            this.roomba.cooldown--;
             return false;
         }
 
-        this.cooldown = 10;
+        this.roomba.cooldown = 10;
 
         List<ItemEntity> items = this.roomba.getWorld().getEntitiesByClass(
                 ItemEntity.class,
@@ -36,7 +36,6 @@ public class RoombaPickUpGoal extends Goal {
         );
 
         if (!items.isEmpty()) {
-            // Find the closest item that can actually fit in inventory
             this.targetItem = items.stream()
                     .filter(item -> this.canFitInInventory(item.getStack()))
                     .min((a, b) -> Double.compare(
@@ -77,19 +76,15 @@ public class RoombaPickUpGoal extends Goal {
 
         double distance = this.roomba.squaredDistanceTo(this.targetItem);
 
-        // If close enough, pick up
-        if (distance < 1.5) { // Within ~1.22 blocks
+        if (distance < 1.5) {
             this.pickupItem(this.targetItem);
             return;
         }
 
-        // Calculate direction from roomba to item
         double dx = this.targetItem.getX() - this.roomba.getX();
         double dz = this.targetItem.getZ() - this.roomba.getZ();
         double length = Math.sqrt(dx * dx + dz * dz);
 
-        // Pathfind to a position 1 block past the item
-        // This forces the roomba to go through the item
         if (length > 0) {
             double targetX = this.targetItem.getX() + (dx / length);
             double targetZ = this.targetItem.getZ() + (dz / length);
@@ -116,17 +111,13 @@ public class RoombaPickUpGoal extends Goal {
     }
 
     private boolean canFitInInventory(ItemStack itemStack) {
-        // Check if this specific item can fit in the inventory
-        // Either there's an empty slot, or there's a matching stack with room
         for (int i = 0; i < this.roomba.getInventory().size(); i++) {
             ItemStack slot = this.roomba.getInventory().getStack(i);
 
-            // Empty slot - can always fit
             if (slot.isEmpty()) {
                 return true;
             }
 
-            // Matching item with room to stack
             if (ItemStack.areItemsAndComponentsEqual(slot, itemStack) && slot.getCount() < slot.getMaxCount()) {
                 return true;
             }

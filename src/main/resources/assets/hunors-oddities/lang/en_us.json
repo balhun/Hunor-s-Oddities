@@ -1,5 +1,9 @@
 {
   "itemGroup.hunors-oddities": "Hunor's Oddities",
   "item.hunors-oddities.hunors_coffee": "Hunor's Coffee",
-  "item.hunors-oddities.roomba": "Roomba"
+  "item.hunors-oddities.roomba": "Roomba",
+  "item.oddities.roomba.tooltip.1": "Automatically picks up nearby items",
+  "item.oddities.roomba.tooltip.2": "Holds up to 9 item stacks",
+  "item.oddities.roomba.tooltip.usage": "How to use:",
+  "item.oddities.roomba.tooltip.pickup": "• Right-click to collect items • Shift+Right-click to pick up"
 }

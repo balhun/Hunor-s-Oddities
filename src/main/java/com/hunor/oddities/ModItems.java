@@ -16,14 +16,9 @@ public class ModItems {
     public static final Item HUNORS_COFFEE = new HunorsCoffee(new Item.Settings());
     public static final Item ROOMBA_ITEM = new RoombaItem(new Item.Settings());
 
-
-
-
     public static void initialize() {
         Registry.register(Registries.ITEM, Identifier.of(HunorsOddities.MOD_ID, "hunors_coffee"), HUNORS_COFFEE);
         Registry.register(Registries.ITEM, Identifier.of(HunorsOddities.MOD_ID, "roomba"), ROOMBA_ITEM);
-
-
 
         Registry.register(Registries.ITEM_GROUP, HUNORS_ODDITIES_GROUPKEY, HUNORS_ODDITIES_GROUP);
         ItemGroupEvents.modifyEntriesEvent(HUNORS_ODDITIES_GROUPKEY).register(itemGroup -> {

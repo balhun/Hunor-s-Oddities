@@ -2,19 +2,19 @@ package com.hunor.oddities.item;
 
 import com.hunor.oddities.HunorsOddities;
 import com.hunor.oddities.entity.RoombaEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
+import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class RoombaItem extends Item {
 
@@ -34,7 +34,6 @@ public class RoombaItem extends Item {
         Direction direction = context.getSide();
         BlockPos spawnPos = pos.offset(direction);
 
-        // Spawn the Roomba
         RoombaEntity roomba = HunorsOddities.ROOMBA.create(world);
         if (roomba != null) {
             roomba.refreshPositionAndAngles(
@@ -51,4 +50,13 @@ public class RoombaItem extends Item {
         return ActionResult.CONSUME;
     }
 
+    @Override
+    public void appendTooltip(ItemStack stack, TooltipContext context, List<Text> tooltip, TooltipType type) {
+        // Add tooltip lines
+        tooltip.add(Text.translatable("item.oddities.roomba.tooltip.1").formatted(Formatting.GRAY));
+        tooltip.add(Text.translatable("item.oddities.roomba.tooltip.2").formatted(Formatting.GRAY));
+        tooltip.add(Text.empty());
+        tooltip.add(Text.translatable("item.oddities.roomba.tooltip.usage").formatted(Formatting.GOLD));
+        tooltip.add(Text.translatable("item.oddities.roomba.tooltip.pickup").formatted(Formatting.YELLOW));
+    }
 }
