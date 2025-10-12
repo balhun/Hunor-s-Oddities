@@ -23,6 +23,8 @@ public class HunorsOddities implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ModItems.initialize();
+		ModSounds.registerSounds();
+
 		FabricDefaultAttributeRegistry.register(ROOMBA, RoombaEntity.createAttributes());
 	}
 }

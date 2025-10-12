@@ -18,6 +18,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
@@ -52,12 +54,12 @@ public class RoombaEntity extends AnimalEntity {
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         if (!this.getWorld().isClient) {
+            if (!inventory.isEmpty()) playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1F, 1f);
             cooldown = 20;
             for (int i = 0; i < inventory.size(); i++) {
                 ItemStack stack = inventory.getStack(i);
                 if (!stack.isEmpty()) {
                     if (!player.getInventory().insertStack(stack)) {
-                        System.out.println("THIS RAN");
                         ItemScatterer.spawn(this.getWorld(), this.getX(), this.getY(), this.getZ(), stack);
                     }
                     inventory.setStack(i, ItemStack.EMPTY);
@@ -68,7 +70,6 @@ public class RoombaEntity extends AnimalEntity {
                 this.discard();
                 ItemStack ROOMBA_ITEM = new ItemStack(ModItems.ROOMBA_ITEM);
                 if (!player.getInventory().insertStack(ROOMBA_ITEM)) {
-                    System.out.println("THIS RAN2");
                     ItemScatterer.spawn(this.getWorld(), this.getX(), this.getY(), this.getZ(), ROOMBA_ITEM);
                 }
             }
@@ -77,8 +78,32 @@ public class RoombaEntity extends AnimalEntity {
     }
 
     @Override
+    protected @Nullable SoundEvent getHurtSound(DamageSource source) {
+        return SoundEvents.BLOCK_ANVIL_LAND;
+    }
+
+    @Override
+    protected void playHurtSound(DamageSource damageSource) {
+        this.playSound(this.getHurtSound(damageSource), 0.1F, (float)(1.5 + Math.random() * (1.8 - 1.5)));
+    }
+
+    @Override
+    protected @Nullable SoundEvent getDeathSound() {
+        return SoundEvents.BLOCK_METAL_HIT;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (!this.getWorld().isClient && this.age % 40 == 0) { // Every 2 seconds
+            this.playSound(SoundEvents.BLOCK_BEACON_AMBIENT, 0.1F, 1.5F);
+        }
+    }
+
+    @Override
     protected void dropLoot(DamageSource damageSource, boolean causedByPlayer) {
         if (!this.getWorld().isClient) {
+            dropStack(new ItemStack(ModItems.ROOMBA_ITEM));
             for (int i = 0; i < inventory.size(); i++) dropStack(inventory.getStack(i));
             inventory.clear();
         }

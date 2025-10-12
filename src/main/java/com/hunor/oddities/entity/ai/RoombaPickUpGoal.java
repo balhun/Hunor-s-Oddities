@@ -4,6 +4,7 @@ import com.hunor.oddities.entity.RoombaEntity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.item.ItemStack;
+import net.minecraft.sound.SoundEvents;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -81,6 +82,7 @@ public class RoombaPickUpGoal extends Goal {
             return;
         }
 
+
         double dx = this.targetItem.getX() - this.roomba.getX();
         double dz = this.targetItem.getZ() - this.roomba.getZ();
         double length = Math.sqrt(dx * dx + dz * dz);
@@ -103,6 +105,8 @@ public class RoombaPickUpGoal extends Goal {
         ItemStack remaining = this.roomba.getInventory().addStack(stack.copy());
 
         if (remaining.isEmpty()) {
+
+            this.roomba.playSound(SoundEvents.BLOCK_BUBBLE_COLUMN_BUBBLE_POP, 0.5F, (float)(0.6 + Math.random() * (1.3 - 0.6)));
             item.discard();
             this.targetItem = null;
         } else {
