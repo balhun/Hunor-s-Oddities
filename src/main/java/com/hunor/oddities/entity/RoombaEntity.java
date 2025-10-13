@@ -2,6 +2,8 @@ package com.hunor.oddities.entity;
 
 import com.hunor.oddities.ModItems;
 import com.hunor.oddities.entity.ai.RoombaPickUpGoal;
+import com.hunor.oddities.entity.ai.RoombaReturnHomeGoal;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
@@ -23,6 +25,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -31,17 +34,34 @@ public class RoombaEntity extends AnimalEntity {
     private final SimpleInventory inventory = new SimpleInventory(9);
 
     public int cooldown;
+    // Store spawn location
+    private BlockPos homePos;
 
-    public RoombaEntity(EntityType<? extends AnimalEntity> entityType, World world) { super(entityType, world); }
+    public RoombaEntity(EntityType<? extends AnimalEntity> entityType, World world) {
+        super(entityType, world);
+    }
 
     public SimpleInventory getInventory() { return inventory; }
+
+    public BlockPos getHomePos() { return homePos; }
+
+    // Check if inventory has any items
+    public boolean hasItemsInInventory() {
+        for (int i = 0; i < inventory.size(); i++) {
+            if (!inventory.getStack(i).isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     @Override
     protected void initGoals() {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new RoombaPickUpGoal(this));
-        this.goalSelector.add(2, new TemptGoal(this, 1, (stack) -> stack.isOf(Items.REDSTONE), false));
-        this.goalSelector.add(3, new LookAroundGoal(this));
+        this.goalSelector.add(2, new RoombaReturnHomeGoal(this));
+        this.goalSelector.add(3, new TemptGoal(this, 1, (stack) -> stack.isOf(Items.REDSTONE), false));
+        this.goalSelector.add(4, new LookAroundGoal(this));
     }
 
     public static DefaultAttributeContainer.Builder createAttributes() {
@@ -54,8 +74,8 @@ public class RoombaEntity extends AnimalEntity {
     @Override
     public ActionResult interactMob(PlayerEntity player, Hand hand) {
         if (!this.getWorld().isClient) {
-            if (!inventory.isEmpty()) playSound(SoundEvents.ENTITY_ITEM_PICKUP, 1F, 1f);
-            cooldown = 20;
+            if (!inventory.isEmpty()) playSound(SoundEvents.ENTITY_ITEM_PICKUP, 0.5F, 1f);
+            cooldown = 60;
             for (int i = 0; i < inventory.size(); i++) {
                 ItemStack stack = inventory.getStack(i);
                 if (!stack.isEmpty()) {
@@ -93,10 +113,23 @@ public class RoombaEntity extends AnimalEntity {
     }
 
     @Override
+    protected void playStepSound(BlockPos pos, BlockState state) {}
+
+    @Override
     public void tick() {
         super.tick();
+
+        if (cooldown % 20 == 0 && cooldown > 0) {
+            this.playSound(SoundEvents.BLOCK_ANVIL_LAND, 0.03F, 1.8F);
+        }
+
+        if (homePos == null && !this.getWorld().isClient) {
+            homePos = this.getBlockPos();
+            System.out.println("this.getBlockPos() = " + this.getBlockPos());
+        }
+
         if (!this.getWorld().isClient && this.age % 40 == 0) { // Every 2 seconds
-            this.playSound(SoundEvents.BLOCK_BEACON_AMBIENT, 0.1F, 1.5F);
+            this.playSound(SoundEvents.BLOCK_BEACON_AMBIENT, 0.05F, 1.5F);
         }
     }
 
@@ -122,12 +155,30 @@ public class RoombaEntity extends AnimalEntity {
     @Override
     public NbtCompound writeNbt(NbtCompound nbt) {
         Inventories.writeNbt(nbt, inventory.getHeldStacks(), this.getRegistryManager());
+
+        // Save home position
+        if (homePos != null) {
+            nbt.putInt("HomeX", homePos.getX());
+            nbt.putInt("HomeY", homePos.getY());
+            nbt.putInt("HomeZ", homePos.getZ());
+        }
+
         return super.writeNbt(nbt);
     }
 
     @Override
     public void readNbt(NbtCompound nbt) {
         Inventories.readNbt(nbt, inventory.getHeldStacks(), this.getRegistryManager());
+
+        // Load home position
+        if (nbt.contains("HomeX")) {
+            homePos = new BlockPos(
+                    nbt.getInt("HomeX"),
+                    nbt.getInt("HomeY"),
+                    nbt.getInt("HomeZ")
+            );
+        }
+
         super.readNbt(nbt);
     }
 }

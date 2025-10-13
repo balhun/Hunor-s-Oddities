@@ -28,11 +28,9 @@ public class RoombaPickUpGoal extends Goal {
             return false;
         }
 
-        this.roomba.cooldown = 10;
-
         List<ItemEntity> items = this.roomba.getWorld().getEntitiesByClass(
                 ItemEntity.class,
-                this.roomba.getBoundingBox().expand(8.0),
+                this.roomba.getBoundingBox().expand(16.0),
                 item -> !item.isRemoved() && item.isAlive()
         );
 

@@ -5,5 +5,7 @@
   "item.oddities.roomba.tooltip.1": "Automatically picks up nearby items",
   "item.oddities.roomba.tooltip.2": "Holds up to 9 item stacks",
   "item.oddities.roomba.tooltip.usage": "How to use:",
-  "item.oddities.roomba.tooltip.pickup": "• Right-click to collect items • Shift+Right-click to pick up"
+  "item.oddities.roomba.tooltip.pickup": "• Right-click to collect items • Shift+Right-click to pick up",
+  "item.oddities.roomba.tooltip.home": "• The block the Roomba is first placed on is it's home.",
+  "item.oddities.roomba.tooltip.home2": "• Placing a hopper at It's home is very recommended."
 }

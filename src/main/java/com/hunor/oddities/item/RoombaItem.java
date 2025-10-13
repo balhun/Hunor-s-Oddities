@@ -58,5 +58,7 @@ public class RoombaItem extends Item {
         tooltip.add(Text.empty());
         tooltip.add(Text.translatable("item.oddities.roomba.tooltip.usage").formatted(Formatting.GOLD));
         tooltip.add(Text.translatable("item.oddities.roomba.tooltip.pickup").formatted(Formatting.YELLOW));
+        tooltip.add(Text.translatable("item.oddities.roomba.tooltip.home").formatted(Formatting.YELLOW));
+        tooltip.add(Text.translatable("item.oddities.roomba.tooltip.home2").formatted(Formatting.YELLOW));
     }
 }
