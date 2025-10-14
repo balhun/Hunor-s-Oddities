@@ -5,6 +5,7 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -24,14 +25,15 @@ public class RoombaPickUpGoal extends Goal {
     public boolean canStart() {
 
         if (this.roomba.cooldown > 0) {
-            this.roomba.cooldown--;
             return false;
         }
 
         List<ItemEntity> items = this.roomba.getWorld().getEntitiesByClass(
                 ItemEntity.class,
                 this.roomba.getBoundingBox().expand(16.0),
-                item -> !item.isRemoved() && item.isAlive()
+                item -> !item.isRemoved()
+                        && item.isAlive()
+                        && !isItemAtHome(item)
         );
 
         if (!items.isEmpty()) {
@@ -126,5 +128,14 @@ public class RoombaPickUpGoal extends Goal {
         }
 
         return false;
+    }
+
+    private boolean isItemAtHome(ItemEntity item) {
+        BlockPos home = this.roomba.getHomePos();
+        if (home == null) return false;
+
+        // Check if item is within 2 blocks of home position (so it ignores dropped items at home)
+        double distance = item.squaredDistanceTo(home.getX() + 0.5, home.getY(), home.getZ() + 0.5);
+        return distance < 1.0; // Within 2 blocks of home
     }
 }

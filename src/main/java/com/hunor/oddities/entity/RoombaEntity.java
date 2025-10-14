@@ -119,8 +119,14 @@ public class RoombaEntity extends AnimalEntity {
     public void tick() {
         super.tick();
 
-        if (cooldown % 20 == 0 && cooldown > 0) {
-            this.playSound(SoundEvents.BLOCK_ANVIL_LAND, 0.03F, 1.8F);
+        // Countdown cooldown ONCE per tick
+        if (cooldown > 0) {
+            cooldown--;
+
+            // Play sound every second while on cooldown
+            if (cooldown % 20 == 0) {
+                this.playSound(SoundEvents.BLOCK_ANVIL_LAND, 0.03F, 1.8F);
+            }
         }
 
         if (homePos == null && !this.getWorld().isClient) {
