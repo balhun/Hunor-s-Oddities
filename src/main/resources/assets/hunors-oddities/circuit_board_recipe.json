@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " # ",
+        "GGG",
+        " # "
+    ],
+    "key": {
+        "#": {
+            "item": "hunors-oddities:bio_plastic"
+        },
+        "G": {
+            "item": "minecraft:gold_nugget"
+        }
+    },
+    "result": {
+        "id": "hunors-oddities:circuit_board",
+        "count": 1
+    }
+}

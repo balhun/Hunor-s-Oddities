@@ -1,0 +1,20 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " g ",
+        "gHg",
+        " g "
+    ],
+    "key": {
+        "g": {
+            "item": "minecraft:gold_ingot"
+        },
+        "H": {
+            "item": "hunors-oddities:circuit_board"
+        }
+    },
+    "result": {
+        "id": "hunors-oddities:simple_cpu",
+        "count": 1
+    }
+}
