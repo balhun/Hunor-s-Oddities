@@ -1,0 +1,12 @@
+{
+  "itemGroup.hunors_oddities": "Hunor's Oddities",
+  "item.hunors_oddities.hunors_coffee": "Hunor's Coffee",
+  "item.hunors_oddities.circuit_board": "Circuit Board",
+  "item.hunors_oddities.roomba": "Roomba",
+  "item.oddities.roomba.tooltip.1": "Automatically picks up nearby items",
+  "item.oddities.roomba.tooltip.2": "Holds up to 9 item stacks",
+  "item.oddities.roomba.tooltip.usage": "How to use:",
+  "item.oddities.roomba.tooltip.pickup": "• Right-click to collect items • Shift+Right-click to pick up",
+  "item.oddities.roomba.tooltip.home": "• The block the Roomba is first placed on is It's home.",
+  "item.oddities.roomba.tooltip.home2": "• The roomba drops the collected items at It's home."
+}

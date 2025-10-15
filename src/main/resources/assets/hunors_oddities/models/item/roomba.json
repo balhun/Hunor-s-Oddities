@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "hunors-oddities:item/hunors_coffee"
+    "layer0": "hunors_oddities:item/roomba_item"
   }
 }

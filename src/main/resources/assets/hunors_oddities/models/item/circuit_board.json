@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "hunors-oddities:item/roomba_item"
+    "layer0": "hunors_oddities:item/circuit_board"
   }
 }

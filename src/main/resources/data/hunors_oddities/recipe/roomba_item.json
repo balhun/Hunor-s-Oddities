@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "iRi",
+    "LHL"
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "L": {
+      "item": "minecraft:light_blue_wool"
+    },
+    "H": {
+      "item": "hunors_oddities:circuit_board"
+    }
+  },
+  "result": {
+    "id": "hunors_oddities:roomba",
+    "count": 1
+  },
+  "show_notification": true
+}

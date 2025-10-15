@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class HunorsOddities implements ModInitializer {
-	public static final String MOD_ID = "hunors-oddities";
+	public static final String MOD_ID = "hunors_oddities";
 
 	public static final EntityType<RoombaEntity> ROOMBA = Registry.register(Registries.ENTITY_TYPE,
 			Identifier.of(MOD_ID, "roomba"),

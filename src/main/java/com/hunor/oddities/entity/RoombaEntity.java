@@ -134,7 +134,7 @@ public class RoombaEntity extends AnimalEntity {
             System.out.println("this.getBlockPos() = " + this.getBlockPos());
         }
 
-        if (!this.getWorld().isClient && this.age % 40 == 0) { // Every 2 seconds
+        if (!this.getWorld().isClient && this.age % 50 == 0) { // Every 2 seconds
             this.playSound(SoundEvents.BLOCK_BEACON_AMBIENT, 0.05F, 1.5F);
         }
     }
@@ -142,7 +142,9 @@ public class RoombaEntity extends AnimalEntity {
     @Override
     protected void dropLoot(DamageSource damageSource, boolean causedByPlayer) {
         if (!this.getWorld().isClient) {
-            dropStack(new ItemStack(ModItems.ROOMBA_ITEM));
+            dropStack(new ItemStack(ModItems.CIRCUIT_BOARD));
+            dropStack(new ItemStack(Items.IRON_INGOT));
+            dropStack(new ItemStack(Items.IRON_INGOT));
             for (int i = 0; i < inventory.size(); i++) dropStack(inventory.getStack(i));
             inventory.clear();
         }
