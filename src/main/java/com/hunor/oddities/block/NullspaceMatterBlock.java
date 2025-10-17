@@ -18,6 +18,11 @@ public class NullspaceMatterBlock extends Block {
     }
 
     @Override
+    public float getHardness() {
+        return 0.5f;
+    }
+
+    @Override
     public void onBroken(WorldAccess world, BlockPos pos, BlockState state) {
         // Spawn particles
         if (!world.isClient()) {
@@ -27,7 +32,7 @@ public class NullspaceMatterBlock extends Block {
                 double z = pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.5;
 
                 ((ServerWorld) world).spawnParticles(
-                        ParticleTypes.DRAGON_BREATH,
+                        ParticleTypes.SMOKE,
                         x, y, z,
                         1,
                         0, 0, 0,
@@ -49,7 +54,7 @@ public class NullspaceMatterBlock extends Block {
                 double z = pos.getZ() + 0.5 + (Math.random() - 0.5) * 0.5;
 
                 ((ServerWorld) world).spawnParticles(
-                        ParticleTypes.DRAGON_BREATH,
+                        ParticleTypes.SMOKE,
                         x, y, z,
                         1,
                         0, 0, 0,

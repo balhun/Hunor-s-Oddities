@@ -14,7 +14,9 @@ public class ModBlocks {
 
     public static final Block NULLSPACE_MATTER = registerBlock("nullspace_matter",
             new NullspaceMatterBlock(AbstractBlock.Settings.create()
-                    .strength(1f)));
+                    .strength(0.5f)
+                    .resistance(0.5f)
+                    ));
 
     public static Block registerBlock(String name, Block block) {
         registerBlockItem(name, block);

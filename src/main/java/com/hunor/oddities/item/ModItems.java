@@ -16,17 +16,20 @@ public class ModItems {
     public static final Item HUNORS_COFFEE = new HunorsCoffee(new Item.Settings());
     public static final Item ROOMBA_ITEM = new RoombaItem(new Item.Settings());
     public static final Item CIRCUIT_BOARD = new Item(new Item.Settings().maxCount(16));
+    public static final Item NULLSPACE_PORTAL = new NullspacePortalItem(new Item.Settings().maxCount(1));
 
     public static void initialize() {
         Registry.register(Registries.ITEM, Identifier.of(HunorsOddities.MOD_ID, "hunors_coffee"), HUNORS_COFFEE);
         Registry.register(Registries.ITEM, Identifier.of(HunorsOddities.MOD_ID, "roomba"), ROOMBA_ITEM);
         Registry.register(Registries.ITEM, Identifier.of(HunorsOddities.MOD_ID, "circuit_board"), CIRCUIT_BOARD);
+        Registry.register(Registries.ITEM, Identifier.of(HunorsOddities.MOD_ID, "nullspace_portal"), NULLSPACE_PORTAL);
 
         Registry.register(Registries.ITEM_GROUP, HUNORS_ODDITIES_GROUPKEY, HUNORS_ODDITIES_GROUP);
         ItemGroupEvents.modifyEntriesEvent(HUNORS_ODDITIES_GROUPKEY).register(itemGroup -> {
             itemGroup.add(ModItems.HUNORS_COFFEE);
             itemGroup.add(ModItems.ROOMBA_ITEM);
             itemGroup.add(ModItems.CIRCUIT_BOARD);
+            itemGroup.add(ModItems.NULLSPACE_PORTAL);
 
             itemGroup.add(ModBlocks.NULLSPACE_MATTER);
         });

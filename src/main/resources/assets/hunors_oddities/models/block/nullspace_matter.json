@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "hunors_oddities:block/nullspace_matter"
+  }
+}

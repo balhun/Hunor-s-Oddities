@@ -1,0 +1,17 @@
+{
+  "type": "hunors_oddities:nullspace",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "biome": "hunors_oddities:nullspace",
+      "lakes": false,
+      "features": false,
+      "layers": [
+        {
+          "height": 64,
+          "block": "hunors_oddities:nullspace_matter"
+        }
+      ]
+    }
+  }
+}

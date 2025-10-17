@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "hunors_oddities:item/nullspace_portal"
+  }
+}
