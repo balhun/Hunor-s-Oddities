@@ -1,11 +1,10 @@
 package com.hunor.oddities.entity;
 
-import com.hunor.oddities.ModItems;
+import com.hunor.oddities.item.ModItems;
 import com.hunor.oddities.entity.ai.RoombaPickUpGoal;
 import com.hunor.oddities.entity.ai.RoombaReturnHomeGoal;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -28,8 +27,13 @@ import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib.animatable.GeoAnimatable;
+import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class RoombaEntity extends AnimalEntity {
+public class RoombaEntity extends AnimalEntity implements GeoEntity {
 
     private final SimpleInventory inventory = new SimpleInventory(9);
 
@@ -188,5 +192,24 @@ public class RoombaEntity extends AnimalEntity {
         }
 
         super.readNbt(nbt);
+    }
+
+    public static final float SWEEPER_SPEED = 0.8f; // Adjust this value
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+        controllerRegistrar.add(new AnimationController<>(this, "controller", 0, state -> {
+            state.getController().setAnimation(RawAnimation.begin().then("animation.roomba.sweepers", Animation.LoopType.LOOP));
+            state.getController().setAnimationSpeed(SWEEPER_SPEED);
+            return PlayState.CONTINUE;
+        }));
+    }
+
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
+
+    @Override
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return cache;
     }
 }

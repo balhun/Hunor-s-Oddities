@@ -3,6 +3,12 @@
   "item.hunors_oddities.hunors_coffee": "Hunor's Coffee",
   "item.hunors_oddities.circuit_board": "Circuit Board",
   "item.hunors_oddities.roomba": "Roomba",
+  "block.hunors_oddities.nullspace_matter": "Nullspace Matter",
+
+
+
+
+
   "item.oddities.roomba.tooltip.1": "Automatically picks up nearby items",
   "item.oddities.roomba.tooltip.2": "Holds up to 9 item stacks",
   "item.oddities.roomba.tooltip.usage": "How to use:",

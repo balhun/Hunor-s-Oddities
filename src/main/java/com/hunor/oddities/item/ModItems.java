@@ -1,7 +1,7 @@
-package com.hunor.oddities;
+package com.hunor.oddities.item;
 
-import com.hunor.oddities.item.HunorsCoffee;
-import com.hunor.oddities.item.RoombaItem;
+import com.hunor.oddities.HunorsOddities;
+import com.hunor.oddities.block.ModBlocks;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.*;
@@ -27,6 +27,8 @@ public class ModItems {
             itemGroup.add(ModItems.HUNORS_COFFEE);
             itemGroup.add(ModItems.ROOMBA_ITEM);
             itemGroup.add(ModItems.CIRCUIT_BOARD);
+
+            itemGroup.add(ModBlocks.NULLSPACE_MATTER);
         });
     }
 

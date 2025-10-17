@@ -1,6 +1,9 @@
 package com.hunor.oddities;
 
+import com.hunor.oddities.block.ModBlocks;
 import com.hunor.oddities.entity.RoombaEntity;
+import com.hunor.oddities.item.ModItems;
+import com.hunor.oddities.sound.ModSounds;
 import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
@@ -9,8 +12,6 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class HunorsOddities implements ModInitializer {
 	public static final String MOD_ID = "hunors_oddities";
@@ -23,7 +24,8 @@ public class HunorsOddities implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ModItems.initialize();
-		ModSounds.registerSounds();
+		ModBlocks.registerModBlocks();
+		ModSounds.register();
 
 		FabricDefaultAttributeRegistry.register(ROOMBA, RoombaEntity.createAttributes());
 	}
